@@ -341,7 +341,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.opencloud.storage.s3.external.existingSecret | default (printf "%s-s3" (include "opencloud.opencloud.fullname" .)) }}
                   key: secretKey
-            {{- else }}
+            {{- else if .Values.opencloud.storage.s3.internal.enabled }}
             # Internal S3 (MinIO) storage
             - name: STORAGE_USERS_DECOMPOSEDS3_ENDPOINT
               value: {{ printf "http://%s:9000" (include "opencloud.minio.fullname" .) | quote }}
